@@ -127,6 +127,67 @@ class DoublyLinkedList{
             } 
             return data;
         }
+
+        T remove(Node<T>* node){
+            if(node->prev==NULL) return removeFirst();  // head node
+            if(node->next==NULL) return removeLast();   // tail node
+            
+            T data = node->data;
+            // connect prev and next node 
+            node->next->prev = node->prev;
+            node->prev->next = node->next;
+
+            // Do memory clean
+            delete node;
+            node = node->prev = node->next = NULL;
+            size--;
+            return data;
+        }
+
+        T removeAt(int index){
+            if(index < 0 || index >= size) throw "Index out of bound!";
+            Node<T>* trav;
+            if(index < size/2){     // search from the front of the list
+                trav = head;
+                for(int i=0; i!=index; i++){
+                    trav = trav->next;
+                }
+            }else{                  // search from the back of the list 
+                trav = tail;
+                for(int i=(size-1); i!=index; i--){
+                    trav = trav->prev;
+                }
+            }
+            return remove(trav);
+        }
+
+        bool remove(T elem){
+            Node<T>* trav = head;
+            while (trav != NULL){
+                if(trav->data == elem){
+                    remove(trav);
+                    return true;
+                } 
+                trav = trav->next;
+            }
+            return false;
+        }
+
+        int indexOf(T elem){
+            int index = 0;
+            Node<T>* trav = head;
+            for(trav = head; trav != NULL; trav = trav->next, index++){
+                if(trav->data == elem){
+                    return index;
+                }
+            }
+            return -1;
+        }
+
+        bool conatins(T elem){
+            return indexOf(elem) != -1;
+        }
+
 };
 
 
@@ -136,14 +197,19 @@ int main(int argc, char** argv){
     try {
         DoublyLinkedList<int> list;
         for(int i=1; i<11; i++){
-            list.addFirst(i);
+            list.addLast(i);
         }
         list.print();
-        list.removeLast();
+        std::cout << "removed: " << list.removeFirst() << std::endl;
         list.print();
-        list.removeLast();
+        std::cout << "removed: " << list.removeLast() << std::endl;
         list.print();
-        list.removeLast();
+        std::cout << "removed: " << list.removeAt(3) << std::endl;
+        list.print();
+        std::cout << "removed: " << list.removeAt(6) << std::endl;
+        list.print();
+
+        list.remove(3);
         list.print();
 
     } catch (const char* msg) {
