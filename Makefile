@@ -1,15 +1,18 @@
+SRC=src
+BIN=bin
+
 CXXFLAGS ?= -std=c++17 -g -Wall -Wextra -Werror -Wno-unused-parameter -Wno-unused-variable
 
-build: dynamic_arrays doubly_linked_list
+build: $(BIN)/dynamic_arrays $(BIN)/doubly_linked_list
 
-doubly_linked_list: doubly_linked_list.cpp
+$(BIN)/doubly_linked_list: $(SRC)/doubly_linked_list.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
-dynamic_arrays: dynamic_arrays.cpp
+$(BIN)/dynamic_arrays: $(SRC)/dynamic_arrays.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 clean:
-	rm -f dynamic_arrays doubly_linked_list
+	rm -f $(BIN)/dynamic_arrays $(BIN)/doubly_linked_list
 
 test:
-	./doubly_linked_list
+	$(BIN)/doubly_linked_list
