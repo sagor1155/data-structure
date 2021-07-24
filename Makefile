@@ -3,7 +3,7 @@ BIN=bin
 
 CXXFLAGS ?= -std=c++17 -g -Wall -Wextra -Werror -Wno-unused-parameter -Wno-unused-variable
 
-build: $(BIN)/dynamic_arrays $(BIN)/doubly_linked_list $(BIN)/linked_list $(BIN)/tower_of_hanoi
+build: $(BIN)/dynamic_arrays $(BIN)/doubly_linked_list $(BIN)/linked_list $(BIN)/tower_of_hanoi $(BIN)/stack
 
 $(BIN)/dynamic_arrays: $(SRC)/dynamic_arrays.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $^
@@ -17,8 +17,11 @@ $(BIN)/linked_list: $(SRC)/linked_list.cpp
 $(BIN)/tower_of_hanoi: $(SRC)/tower_of_hanoi.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
+$(BIN)/stack: $(SRC)/stack.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
 clean:
-	rm -f $(BIN)/dynamic_arrays $(BIN)/doubly_linked_list $(BIN)/linked_list $(BIN)/tower_of_hanoi
+	rm -f $(BIN)/dynamic_arrays $(BIN)/doubly_linked_list $(BIN)/linked_list $(BIN)/tower_of_hanoi $(BIN)/stack
 
 test:
-	$(BIN)/linked_list
+	$(BIN)/stack
