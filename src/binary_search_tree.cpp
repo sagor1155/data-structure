@@ -122,6 +122,13 @@ Node* remove(Node* node, int data){
     return node;
 }
 
+int findHeight(Node* node){
+    if(node==NULL) return -1;
+    int h_left = findHeight(node->left);
+    int h_right = findHeight(node->right);
+    return std::max(h_left, h_right)+1;
+}
+
 int main(int argc, char** argv){
 
     Node *root = NULL;
@@ -132,6 +139,8 @@ int main(int argc, char** argv){
     insert(root, 70);
     insert(root, 60);
     insert(root, 80);
+
+    std::cout << "Height: " << findHeight(root) << std::endl;
 
     std::cout << "Preorder traverse: " << std::endl;
     preorder(root);
@@ -160,6 +169,7 @@ int main(int argc, char** argv){
     inorder(root);
     std::cout << std::endl;
 
+    std::cout << "Height: " << findHeight(root) << std::endl;
     return 0;
 }
 
