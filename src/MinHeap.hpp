@@ -12,7 +12,7 @@ class MinHeap
         T *items;
         int size = 0;
         int capacity = 0;
-
+        
         int getLeftChildIndex(int parentIndex) { return (2*parentIndex + 1); }
         int getRightChildIndex(int parentIndex){ return (2*parentIndex + 2); }
         int getParentIndex(int childIndex)     { return (childIndex - 1)/2; }
@@ -61,6 +61,34 @@ class MinHeap
             shrink();
         }
 
+        void heapifyDown(int index){    // index = 0 for root element 
+            while(hasLeftChild(index)){
+                int smallerChildIndex = getLeftChildIndex(index);
+            
+                if(hasRightChild(index) && rightChild(index)<leftChild(index)){
+                    smallerChildIndex = getRightChildIndex(index);
+                }
+
+                if(items[index] < items[smallerChildIndex]){
+                    break;
+                }else{
+                    swap(index, smallerChildIndex);
+                    index = smallerChildIndex;
+                }
+            }
+        }
+
+        void heapifyUp(int index){  // index = 0 for last element 
+            while (hasParent(index)){
+                if(items[index] >= parent(index)){
+                    break;
+                }else{
+                    swap(index, getParentIndex(index));
+                    index = getParentIndex(index);
+                }
+            }
+        }
+
     public:
         MinHeap(){
             size = 0;
@@ -86,6 +114,10 @@ class MinHeap
             return capacity;
         }
 
+        bool isEmpty(){
+            return getSize()==0;
+        }
+
         void clear(){
             for(int i=0; i<capacity; i++){
                 items[i] = 0;
@@ -101,6 +133,14 @@ class MinHeap
             cout << "\n";
         }
 
+        void print(string str){
+            cout << "[" <<  str << ": " << size << "]  ";
+            for(int i=0; i<size; i++){
+                cout << items[i] << "  ";
+            }
+            cout << "\n";
+        }
+
         T peek(){
             if(size==0) throw "Heap is Empty!";
             return items[size-1];
@@ -109,11 +149,9 @@ class MinHeap
         T poll(){
             if(size==0) throw "Heap is Empty!";
             T item = items[0];
-            swap(0, size-1);
-            removeLast();
-            // items[0] = items[size-1];
-            // size--;
-            heapifyDown();
+            swap(0, size-1);    // items[0] = items[size-1];
+            removeLast();       // size--;
+            heapifyDown(0);
             return item;
         }
 
@@ -121,37 +159,34 @@ class MinHeap
             ensureCapacity();
             items[size] = elem;
             size++;
-            heapifyUp();
+            heapifyUp(size-1);
         }
 
-        void heapifyDown(){
-            int index = 0;
-            while(hasLeftChild(index)){
-                int smallerChildIndex = getLeftChildIndex(index);
+        bool remove(T elem){
+            // Linear removal via search, O(n)
+            for(int i=0; i<size; i++){
+                if(items[i]==elem){
+                    removeAt(i);
+                    return true;
+                }
+            }
+
+            // Logarithmic removal with map, O(log(n))
             
-                if(hasRightChild(index) && rightChild(index)<leftChild(index)){
-                    smallerChildIndex = getRightChildIndex(index);
-                }
-
-                if(items[index] < items[smallerChildIndex]){
-                    break;
-                }else{
-                    swap(index, smallerChildIndex);
-                    index = smallerChildIndex;
-                }
-            }
+            return false;
         }
 
-        void heapifyUp(){
-            int index = size-1;
-            while (hasParent(index)){
-                if(items[index] >= parent(index)){
-                    break;
-                }else{
-                    swap(index, getParentIndex(index));
-                    index = getParentIndex(index);
-                }
+        T removeAt(int index){
+            if(index >= size) throw "Index Out of Bound!";
+            T item = items[index];
+            items[index] = items[size-1];
+            size--;
+            if(hasParent(index) && (parent(index) > items[index])){
+                heapifyUp(index);
+            }else{
+                heapifyDown(index);
             }
+            return item;
         }
 
 };

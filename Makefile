@@ -3,7 +3,9 @@ BIN=bin
 
 CXXFLAGS ?= -std=c++17 -g -Wall -Wextra -Werror -Wno-unused-parameter -Wno-unused-variable
 
-build: $(BIN)/dynamic_arrays $(BIN)/doubly_linked_list $(BIN)/linked_list $(BIN)/tower_of_hanoi $(BIN)/stack $(BIN)/queue $(BIN)/binary_search_tree $(BIN)/sorting $(BIN)/minheap
+build: $(BIN)/dynamic_arrays $(BIN)/doubly_linked_list $(BIN)/linked_list $(BIN)/tower_of_hanoi \
+$(BIN)/stack $(BIN)/queue $(BIN)/binary_search_tree $(BIN)/sorting $(BIN)/minheap $(BIN)/pqueue
+
 
 $(BIN)/dynamic_arrays: $(SRC)/dynamic_arrays.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $^
@@ -32,9 +34,12 @@ $(BIN)/sorting: $(SRC)/sorting.cpp
 $(BIN)/minheap: $(SRC)/MinHeap.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
+$(BIN)/pqueue: $(SRC)/PriorityQueue.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $^
 
 clean:
-	rm -f $(BIN)/dynamic_arrays $(BIN)/doubly_linked_list $(BIN)/linked_list $(BIN)/tower_of_hanoi $(BIN)/stack $(BIN)/queue $(BIN)/binary_search_tree $(BIN)/sorting $(BIN)/minheap
+	rm -f $(BIN)/dynamic_arrays $(BIN)/doubly_linked_list $(BIN)/linked_list $(BIN)/tower_of_hanoi \
+	$(BIN)/stack $(BIN)/queue $(BIN)/binary_search_tree $(BIN)/sorting $(BIN)/minheap $(BIN)/pqueue
 
 test:
-	$(BIN)/minheap
+	$(BIN)/pqueue
