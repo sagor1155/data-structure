@@ -11,6 +11,7 @@ public class LinkedListDemo {
         linkedList.addFirst(40).addFirst(50).addFirst(60).print();
         linkedList.removeFirst().print().removeFirst().print().removeFirst().print();
         System.out.println("Index of 10: " + linkedList.indexOf(10));
+        System.out.println("Index of 70: " + linkedList.indexOf(70));
         System.out.println("Contains 30: " + linkedList.conatins(30));
         System.out.println("Contains 90: " + linkedList.conatins(90));
     }
@@ -120,8 +121,7 @@ class SinglyLinkedList<T> {
 
     public int indexOf(T elem){
         int index = 0;
-        Node<T> trav = head;
-        for(trav = head; trav != null; trav = trav.next, index++){
+        for(Node<T> trav = head; trav != null; trav = trav.next, index++){
             if(trav.data == elem){
                 return index;
             }
