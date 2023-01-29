@@ -143,7 +143,7 @@ class MinHeap
 
         T peek(){
             if(size==0) throw "Heap is Empty!";
-            return items[size-1];
+            return items[0];
         }
 
         T poll(){
