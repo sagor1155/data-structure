@@ -1,3 +1,4 @@
+package src.java.linkedlist;
 
 public class LinkedListDemo {
     public static void main(String[] args) {
@@ -64,7 +65,7 @@ class SinglyLinkedList<T> {
 
     public SinglyLinkedList<T> addLast(T data) {
         if (head==null) {
-            head = tail = new Node<T>(data, null);            
+            head = tail = new Node<T>(data, null);
         } else {
             Node<T> newNode = new Node<T>(data, null);
             tail.next = newNode;

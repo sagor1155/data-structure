@@ -1,17 +1,18 @@
+package src.java.queue;
 
-public class StackDemo {
+public class QueueDemo {
   public static void main(String[] args) {
     System.out.println("---------------------");  
-    System.out.println("Stack Implementation");  
+    System.out.println("Queue Implementation");  
     System.out.println("---------------------");
     
-    Stack<Integer> stack = new Stack<Integer>();
-    stack.push(10).push(20).push(30).push(40).print();
-    System.out.println(stack.pop()); stack.print();
-    System.out.println(stack.pop()); stack.print();
-    System.out.println(stack.pop()); stack.print();
-    System.out.println(stack.pop()); stack.print();
-    System.out.println(stack.pop()); stack.print();
+    Queue<Integer> queue = new Queue<Integer>();
+    queue.enqueue(10).enqueue(20).enqueue(30).enqueue(40).print();
+    System.out.println(queue.dequeue()); queue.print();
+    System.out.println(queue.dequeue()); queue.print();
+    System.out.println(queue.dequeue()); queue.print();
+    System.out.println(queue.dequeue()); queue.print();
+    System.out.println(queue.dequeue()); queue.print();
 
   }  
 }
@@ -26,7 +27,7 @@ class Node<T> {
     }
 }
 
-class Stack<T> {
+class Queue<T> {
     int size = 0;
     Node<T> head;
     Node<T> tail;
@@ -45,7 +46,7 @@ class Stack<T> {
         size = 0;
     }
 
-    public Stack<T> print() {
+    public Queue<T> print() {
         System.out.printf("[%d] ", length());     
         Node<T> tempNode = head;
         if (tempNode == null) {
@@ -61,10 +62,10 @@ class Stack<T> {
         return this;
     }
 
-    public Stack<T> push(T data) {
+    public Queue<T> enqueue(T data) {
         // add last
         if (head==null) {
-            head = tail = new Node<T>(data, null);            
+            head = tail = new Node<T>(data, null);
         } else {
             Node<T> newNode = new Node<T>(data, null);
             tail.next = newNode;
@@ -74,30 +75,15 @@ class Stack<T> {
         return this;
     }
 
-    public T pop() {
+    public T dequeue() {
         if(isEmpty() || head==null){
-            System.err.println("Stack is empty!");
+            System.err.println("Queue is empty!");
             return null;
         }
 
-        // remove last
-        if (head.next == null) {
-            T data = head.data;
-            head = null;
-            size--;
-            return data;
-        }
-
-        Node<T> tempNode = head;
-        T data = tail.data;
-        while (tempNode.next != null) {
-            if (tempNode.next.next == null) {
-                tail = tempNode;
-                tail.next = null;
-                break;
-            }
-            tempNode = tempNode.next;
-        }
+        // remove first
+        T data = head.data;
+        head = (head.next == null) ? null : head.next;
         size--;
         return data;
     }

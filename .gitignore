@@ -1,5 +1,9 @@
 bin/
 
+out/
+.idea
+data-structure.iml
+
 .DS_Store
 *.json
 

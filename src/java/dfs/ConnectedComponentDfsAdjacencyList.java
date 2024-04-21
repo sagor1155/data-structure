@@ -1,3 +1,5 @@
+package src.java.dfs;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +24,7 @@ public class ConnectedComponentDfsAdjacencyList {
     }
 
     public static void main(String[] args) {
-        System.out.println("Find Connected Components Using DFS-Adjacency List");  
+        System.out.println("Find Connected Components Using DFS-Adjacency List");
         ConnectedComponentDfsAdjacencyList cc = new ConnectedComponentDfsAdjacencyList();
         cc.createGraph();
         cc.findComponents();
@@ -88,5 +90,5 @@ public class ConnectedComponentDfsAdjacencyList {
         System.out.println("");
     }
 
-    
+
 }
