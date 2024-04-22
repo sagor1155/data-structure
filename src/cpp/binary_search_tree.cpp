@@ -91,28 +91,25 @@ Node* remove(Node* node, int data){
     else if(data > node->data) 
         node->right = remove(node->right, data);
     else{
-        // node to be removes - is a leaf node
+        // node to be removed - is a leaf node
         if(node->left==NULL && node->right==NULL){
             delete node;
             node = NULL;
         }
-
-        // node to be removes - has only left node
+        // node to be removed - has only left node
         else if(node->right==NULL){
             Node *temp = node;
             node = node->left;
             delete temp;
         }
-
-        // node to be removes - has only right node
+        // node to be removed - has only right node
         else if(node->left==NULL){
             Node* temp = node;
             node = node->right;
             delete temp;
         }
-
-        // node to be removes - has both left & right node
-        else{
+        // node to be removed - has both left & right node
+        else {
             Node* temp = findMin(node->right);
             node->data = temp->data;
             node->right = remove(node->right, temp->data);
