@@ -14,10 +14,9 @@ public class BinarySearchTreeDemo {
         bst.insert(12);
         bst.insert(17);
 
-        bst.remove(10);
+        bst.remove(5);
 
         bst.traverse(BinarySearchTree.OrderType.PRE_ORDER);
-
     }
 }
 
