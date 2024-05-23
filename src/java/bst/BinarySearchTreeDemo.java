@@ -1,5 +1,9 @@
 package src.java.bst;
 
+import java.util.LinkedList;
+import java.util.PriorityQueue;
+import java.util.Queue;
+
 public class BinarySearchTreeDemo {
     public static void main(String[] args) {
         System.out.println("Binary Search Tree Demo");
@@ -16,7 +20,8 @@ public class BinarySearchTreeDemo {
 
         bst.remove(5);
 
-        bst.traverse(BinarySearchTree.OrderType.PRE_ORDER);
+//        bst.traverse(BinarySearchTree.OrderType.PRE_ORDER);
+        bst.traverse(BinarySearchTree.OrderType.LEVEL_ORDER);
     }
 }
 
@@ -105,9 +110,9 @@ class BinarySearchTree<T extends Comparable<T>> {
             // node to be removed - has both left & right node
             else {
                 // find minimum node on right subtree
-                Node<T> node = findMinNode(currNode.right);
-                currNode.data = node.data;
-                currNode.right = remove(node.data, currNode.right);
+                Node<T> minNode = findMinNode(currNode.right);
+                currNode.data = minNode.data;
+                currNode.right = remove(minNode.data, currNode.right);
             }
         }
 
@@ -144,8 +149,17 @@ class BinarySearchTree<T extends Comparable<T>> {
         System.out.println(currNode.data);
     }
 
-    private void levelOrder(Node<T> currNode) {
+    private void levelOrder(Node<T> root) {
+        if (root == null) return;
+        Queue<Node<T>> q = new LinkedList<>();
+        q.add(root);
 
+        while (!q.isEmpty()) {
+            Node<T> n = q.poll(); // retrieve from first
+            System.out.println(n.data);
+            if (n.left != null) q.add(n.left); // add to last
+            if (n.right != null) q.add(n.right);
+        }
     }
 
 }
